@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
@@ -11,13 +11,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Map<String, String>> datas = [];
-  int _currentPageIndex = 0;
+  String currentLocation = "ara";
+  final Map<String, String> locationTypeToString = {
+    "ara": "아라동",
+    "ora": "오라동",
+    "donam": "도남동",
+  };
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _currentPageIndex = 0;
     datas = [
       {
         "cid": "1",
@@ -100,6 +103,12 @@ class _HomeState extends State<Home> {
         "likes": "7"
       },
     ];
+    currentLocation = "ara";
+  }
+
+  final oCcy = new NumberFormat("#,###", "ko_KR");
+  String calcStringToWon(String priceString) {
+    return "${oCcy.format(int.parse(priceString))}원";
   }
 
   PreferredSizeWidget _appbarWidget() {
@@ -112,11 +121,31 @@ class _HomeState extends State<Home> {
         onLongPress: () {
           print("LongPressed");
         },
-        child: Row(
-          children: [
-            Text("현풍읍"),
-            Icon(Icons.arrow_drop_down),
-          ],
+        child: PopupMenuButton<String>(
+          offset: Offset(0, 30),
+          shape: ShapeBorder.lerp(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              1),
+          onSelected: (String where) {
+            print(where);
+            setState(() {
+              currentLocation = where;
+            });
+          },
+          itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem(value: "ara", child: Text("아라동")),
+              PopupMenuItem(value: "ora", child: Text("오라동")),
+              PopupMenuItem(value: "donam", child: Text("도남동")),
+            ];
+          },
+          child: Row(
+            children: [
+              Text(locationTypeToString[currentLocation].toString()),
+              Icon(Icons.arrow_drop_down),
+            ],
+          ),
         ),
       ),
       elevation: 1,
@@ -131,11 +160,6 @@ class _HomeState extends State<Home> {
             )),
       ],
     );
-  }
-
-  final oCcy = new NumberFormat("#,###", "ko_KR");
-  String calcStringToWon(String priceString) {
-    return "${oCcy.format(int.parse(priceString))}원";
   }
 
   Widget _bodyWidget() {
@@ -209,41 +233,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  BottomNavigationBarItem _bottomNavigationBarItem(
-      String iconName, String label) {
-    return BottomNavigationBarItem(
-      icon: SvgPicture.asset("assets/svg/${iconName}.svg", width: 22),
-      label: "${label}",
-    );
-  }
-
-  Widget _bottomNavigationBarWidget() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      onTap: (int index) {
-        setState(() {
-          _currentPageIndex = index;
-        });
-      },
-      currentIndex: _currentPageIndex,
-      selectedItemColor: Colors.black,
-      selectedLabelStyle: TextStyle(color: Colors.black),
-      items: [
-        _bottomNavigationBarItem("home_off", "홈"),
-        _bottomNavigationBarItem("notes_off", "동네 생활"),
-        _bottomNavigationBarItem("location_off", "내 근처"),
-        _bottomNavigationBarItem("chat_off", "채팅"),
-        _bottomNavigationBarItem("user_off", "나의 당근"),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appbarWidget(),
       body: _bodyWidget(),
-      bottomNavigationBar: _bottomNavigationBarWidget(),
     );
   }
 }
