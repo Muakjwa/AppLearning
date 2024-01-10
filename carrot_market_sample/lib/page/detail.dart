@@ -9,6 +9,14 @@ class DetailContentView extends StatefulWidget {
 }
 
 class _DetailContentViewState extends State<DetailContentView> {
+  Size size = Size(700, 700);
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    MediaQuery.of(context).size;
+  }
+
   PreferredSizeWidget _appbarWidget() {
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -22,9 +30,13 @@ class _DetailContentViewState extends State<DetailContentView> {
 
   Widget _bodyWidget() {
     return Container(
-      child: Image.asset(
-        widget.data["image"]!,
-        fit: BoxFit.fill,
+      child: Hero(
+        tag: widget.data["cid"]!,
+        child: Image.asset(
+          widget.data["image"]!,
+          width: size.width,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
@@ -32,6 +44,7 @@ class _DetailContentViewState extends State<DetailContentView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: _appbarWidget(),
       body: _bodyWidget(),
     );
