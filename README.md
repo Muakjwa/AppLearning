@@ -9,7 +9,7 @@ Carrot Market Cloning App (Flutter) :
 [https://youtube.com/playlist?list=PLgRxBCVPaZ_3R0h7mCkLJ1RKh7XRvoZdF&si=vgfZa2yC4IO6QsEE]
 <br/><br/>
 <pre><code>
-python -m venv 가상환경이름 #가상환경 생성
+python -m venv 가상환경이름 //가상환경 생성
 source venv/Scripts/activate  - 가상환경 실행
 pip install django djangorestframework - 장고 설치
 django-admin startproject 프로젝트이름
