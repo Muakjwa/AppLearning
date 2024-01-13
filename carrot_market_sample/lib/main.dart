@@ -1,4 +1,4 @@
-import 'package:carrot_market_sample/page/App.dart';
+import "package:carrot_market_sample/page/App.dart";
 import 'package:flutter/material.dart';
 
 void main() {
