@@ -8,6 +8,7 @@ Carrot Market Cloning App (Flutter) :
 <br/>
 [https://youtube.com/playlist?list=PLgRxBCVPaZ_3R0h7mCkLJ1RKh7XRvoZdF&si=vgfZa2yC4IO6QsEE]
 <br/><br/>
+<pre><code>
 '''python
 python -m venv 가상환경이름  #가상환경 생성
 source venv/Scripts/activate  #가상환경 실행
@@ -33,3 +34,4 @@ whitenoise  #정적 파일의 사용을 돕는 미들웨어
 
 # 추가적인 과정 영상에서 확인
 '''
+</code></pre>
