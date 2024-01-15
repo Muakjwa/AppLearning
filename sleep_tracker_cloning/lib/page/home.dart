@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sleep_tracker_cloning/page/explore_page.dart';
 import 'package:sleep_tracker_cloning/page/sleep_page.dart';
 
 class Home extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomeState extends State<Home> {
         return sleepPage();
         break;
       case 1:
-        return Container();
+        return explorePage();
         break;
     }
     return Container(
