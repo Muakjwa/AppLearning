@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   vertical_scrollable_tabview: ^0.1.1
   scroll_to_index: any
+  flutter_analog_clock: ^1.0.3
 
 dev_dependencies:
   flutter_test:
