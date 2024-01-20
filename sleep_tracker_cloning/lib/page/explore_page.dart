@@ -36,6 +36,7 @@ class _explorePageState extends State<explorePage>
           tabs: myTabs,
         ),
       ),
+      body: Container(),
     );
   }
 }
