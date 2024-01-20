@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
@@ -29,6 +31,10 @@ class _explorePageState extends State<explorePage>
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double width = screenSize.width;
+    double height = screenSize.height;
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: TabBar(
@@ -36,7 +42,80 @@ class _explorePageState extends State<explorePage>
           tabs: myTabs,
         ),
       ),
-      body: Container(),
+      body: Container(
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Column(
+              children: [
+                Text(
+                  '수면을 위한 소리',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: ClipRRect(
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Image.asset(
+                        'images/night.JPG',
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 150,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: ClipRRect(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                              'images/night.JPG',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: ClipRRect(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                              'images/night.JPG',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8)),
+                        child: ClipRRect(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                              'images/night.JPG',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
