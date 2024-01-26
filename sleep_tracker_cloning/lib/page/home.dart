@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sleep_tracker_cloning/page/explore_page.dart';
-import 'package:sleep_tracker_cloning/page/logout_page.dart';
+import 'package:sleep_tracker_cloning/page/accountAccess/logout_page.dart';
 import 'package:sleep_tracker_cloning/page/sleep_page.dart';
 
 class Home extends StatefulWidget {

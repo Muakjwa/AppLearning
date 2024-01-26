@@ -29,6 +29,13 @@
             {
               "client_id": "400633001191-7vmdodaej8r8ekankp2e2i864b93pag4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "400633001191-90t9l45a92m5j2pnt3ehu7kqui93eh5k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sleepTrackerCloning.RunnerTests"
+              }
             }
           ]
         }
@@ -58,6 +65,13 @@
             {
               "client_id": "400633001191-7vmdodaej8r8ekankp2e2i864b93pag4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "400633001191-90t9l45a92m5j2pnt3ehu7kqui93eh5k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sleepTrackerCloning.RunnerTests"
+              }
             }
           ]
         }
