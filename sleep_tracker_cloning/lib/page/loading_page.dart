@@ -31,7 +31,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 ),
               ),
               Positioned(
-                top: height * 0.7,
+                top: height * 0.65,
                 left: width * 0.1,
                 right: 0,
                 child: Text(
@@ -44,7 +44,7 @@ class _LoadingPageState extends State<LoadingPage> {
                 ),
               ),
               Positioned(
-                top: height * 0.8,
+                top: height * 0.75,
                 left: width * 0.1,
                 right: 0,
                 child: Text(

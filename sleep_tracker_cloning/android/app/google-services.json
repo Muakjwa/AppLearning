@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:400633001191:android:0a98d8878d713add485e42",
+        "android_client_info": {
+          "package_name": "com.example.sleep_tracker_cloning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "400633001191-7vmdodaej8r8ekankp2e2i864b93pag4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgpOb-CL9kR4jHsYXn7YDIqKIof1XM-Nc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "400633001191-7vmdodaej8r8ekankp2e2i864b93pag4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:400633001191:android:27e44f95f83e026e485e42",
         "android_client_info": {
           "package_name": "com.sleep_tracker"

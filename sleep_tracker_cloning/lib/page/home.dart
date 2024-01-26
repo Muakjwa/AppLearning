@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sleep_tracker_cloning/page/explore_page.dart';
-import 'package:sleep_tracker_cloning/page/login_page.dart';
+import 'package:sleep_tracker_cloning/page/logout_page.dart';
 import 'package:sleep_tracker_cloning/page/sleep_page.dart';
 
 class Home extends StatefulWidget {
@@ -33,6 +33,88 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Widget _bottomNavigatorWidget() {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          border: Border.all(color: Colors.black)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        child: BottomNavigationBar(
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.white,
+          backgroundColor: Colors.black,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.king_bed,
+                color: Colors.grey,
+              ),
+              activeIcon: Icon(
+                Icons.king_bed,
+                color: Colors.white,
+              ),
+              label: '수면',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.explore,
+                color: Colors.grey,
+              ),
+              activeIcon: Icon(
+                Icons.explore,
+                color: Colors.white,
+              ),
+              label: '탐험',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.calendar_month,
+                color: Colors.grey,
+              ),
+              activeIcon: Icon(
+                Icons.calendar_month,
+                color: Colors.white,
+              ),
+              label: '매일',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.pie_chart,
+                color: Colors.grey,
+              ),
+              activeIcon: Icon(
+                Icons.pie_chart,
+                color: Colors.white,
+              ),
+              label: '통계',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_circle,
+                color: Colors.grey,
+              ),
+              activeIcon: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+              ),
+              label: '프로필',
+            ),
+          ],
+          currentIndex: page_location,
+          onTap: _onBottomNavigatorBarTapped,
+        ),
+      ),
+    );
+  }
+
   void _onBottomNavigatorBarTapped(int index) {
     setState(() {
       page_location = index;
@@ -46,90 +128,21 @@ class _HomeState extends State<Home> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return loginPage();
+            return logoutPage();
           } else {
             return _bodyWidget();
           }
         },
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-            border: Border.all(color: Colors.black)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: BottomNavigationBar(
-            unselectedItemColor: Colors.grey,
-            selectedItemColor: Colors.white,
-            backgroundColor: Colors.black,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.king_bed,
-                  color: Colors.grey,
-                ),
-                activeIcon: Icon(
-                  Icons.king_bed,
-                  color: Colors.white,
-                ),
-                label: '수면',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.explore,
-                  color: Colors.grey,
-                ),
-                activeIcon: Icon(
-                  Icons.explore,
-                  color: Colors.white,
-                ),
-                label: '탐험',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.calendar_month,
-                  color: Colors.grey,
-                ),
-                activeIcon: Icon(
-                  Icons.calendar_month,
-                  color: Colors.white,
-                ),
-                label: '매일',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.pie_chart,
-                  color: Colors.grey,
-                ),
-                activeIcon: Icon(
-                  Icons.pie_chart,
-                  color: Colors.white,
-                ),
-                label: '통계',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.account_circle,
-                  color: Colors.grey,
-                ),
-                activeIcon: Icon(
-                  Icons.account_circle,
-                  color: Colors.white,
-                ),
-                label: '프로필',
-              ),
-            ],
-            currentIndex: page_location,
-            onTap: _onBottomNavigatorBarTapped,
-          ),
-        ),
+      bottomNavigationBar: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return _bottomNavigatorWidget();
+          } else {
+            return logoutPage();
+          }
+        },
       ),
     );
   }
