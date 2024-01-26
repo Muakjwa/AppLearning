@@ -38,6 +38,11 @@ dependencies:
   vertical_scrollable_tabview: ^0.1.1
   scroll_to_index: any
   flutter_analog_clock: ^1.0.3
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  google_login: ^1.0.3
+  google_sign_in: ^6.2.1
+
 
 dev_dependencies:
   flutter_test:

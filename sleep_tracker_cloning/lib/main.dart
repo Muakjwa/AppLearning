@@ -1,8 +1,13 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sleep_tracker_cloning/page/home.dart';
-import 'package:sleep_tracker_cloning/page/sleep_page.dart';
+import 'package:sleep_tracker_cloning/page/loading_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -13,7 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoadingPage(),
+        '/home': (context) => Home(),
+      },
     );
   }
 }
