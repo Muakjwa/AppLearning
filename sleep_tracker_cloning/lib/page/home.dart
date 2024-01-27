@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sleep_tracker_cloning/page/everyday.dart';
 import 'package:sleep_tracker_cloning/page/explore_page.dart';
 import 'package:sleep_tracker_cloning/page/accountAccess/logout_page.dart';
+import 'package:sleep_tracker_cloning/page/setting_page.dart';
 import 'package:sleep_tracker_cloning/page/sleep_page.dart';
+import 'package:sleep_tracker_cloning/page/statistic.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -27,6 +30,15 @@ class _HomeState extends State<Home> {
       case 1:
         return explorePage();
         break;
+      case 2:
+        return everyday();
+        break;
+      case 3:
+        return statistic();
+        break;
+      case 4:
+        return SettingsPage();
+        break;
     }
     return Container(
       color: Colors.black,
@@ -35,81 +47,84 @@ class _HomeState extends State<Home> {
 
   Widget _bottomNavigatorWidget() {
     return Container(
-      decoration: BoxDecoration(
+      color: Colors.black,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+            border: Border.all(color: Colors.black)),
+        child: ClipRRect(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
-          border: Border.all(color: Colors.black)),
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-        child: BottomNavigationBar(
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.white,
-          backgroundColor: Colors.black,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.king_bed,
-                color: Colors.grey,
+          child: BottomNavigationBar(
+            unselectedItemColor: Colors.grey,
+            selectedItemColor: Colors.white,
+            backgroundColor: const Color.fromARGB(255, 39, 35, 51),
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.king_bed,
+                  color: Colors.grey,
+                ),
+                activeIcon: Icon(
+                  Icons.king_bed,
+                  color: Colors.white,
+                ),
+                label: '수면',
               ),
-              activeIcon: Icon(
-                Icons.king_bed,
-                color: Colors.white,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.explore,
+                  color: Colors.grey,
+                ),
+                activeIcon: Icon(
+                  Icons.explore,
+                  color: Colors.white,
+                ),
+                label: '탐험',
               ),
-              label: '수면',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.explore,
-                color: Colors.grey,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.calendar_month,
+                  color: Colors.grey,
+                ),
+                activeIcon: Icon(
+                  Icons.calendar_month,
+                  color: Colors.white,
+                ),
+                label: '매일',
               ),
-              activeIcon: Icon(
-                Icons.explore,
-                color: Colors.white,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.pie_chart,
+                  color: Colors.grey,
+                ),
+                activeIcon: Icon(
+                  Icons.pie_chart,
+                  color: Colors.white,
+                ),
+                label: '통계',
               ),
-              label: '탐험',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.calendar_month,
-                color: Colors.grey,
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.account_circle,
+                  color: Colors.grey,
+                ),
+                activeIcon: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                ),
+                label: '프로필',
               ),
-              activeIcon: Icon(
-                Icons.calendar_month,
-                color: Colors.white,
-              ),
-              label: '매일',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.pie_chart,
-                color: Colors.grey,
-              ),
-              activeIcon: Icon(
-                Icons.pie_chart,
-                color: Colors.white,
-              ),
-              label: '통계',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.account_circle,
-                color: Colors.grey,
-              ),
-              activeIcon: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-              ),
-              label: '프로필',
-            ),
-          ],
-          currentIndex: page_location,
-          onTap: _onBottomNavigatorBarTapped,
+            ],
+            currentIndex: page_location,
+            onTap: _onBottomNavigatorBarTapped,
+          ),
         ),
       ),
     );
