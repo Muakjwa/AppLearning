@@ -39,6 +39,7 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
   <script>
     window.addEventListener('load', function(ev) {
@@ -54,6 +55,29 @@
         }
       });
     });
+  </script>
+  <script>
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfu6vF2tfaRv0frPIbfQ98TrG6vS8yLzs",
+      authDomain: "sleep-tracker-9929f.firebaseapp.com",
+      projectId: "sleep-tracker-9929f",
+      storageBucket: "sleep-tracker-9929f.appspot.com",
+      messagingSenderId: "400633001191",
+      appId: "1:400633001191:web:5872ee66186a8c0c485e42",
+      measurementId: "G-626JRGH8G4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
   </script>
 </body>
 </html>

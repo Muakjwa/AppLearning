@@ -1,8 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
 
 class explorePage extends StatefulWidget {
   const explorePage({super.key});
