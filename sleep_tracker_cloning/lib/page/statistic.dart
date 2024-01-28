@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
@@ -54,11 +56,113 @@ class CircleProgressPainter extends CustomPainter {
 class _statisticState extends State<statistic> {
   final double percentage = 67;
 
+  // 사용자 데이터 불러오기
+  void getUserDataFromFirestore() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String userId = user.uid; // 로그인한 사용자의 ID
+      String key = '일'; // 가져오고자 하는 key
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          // print('사용자 데이터: ${documentSnapshot.data()}');
+          Map<String, dynamic> data =
+              documentSnapshot.data() as Map<String, dynamic>;
+          var value = data[key]; // 특정 key에 해당하는 value
+          print('key의 value: $value');
+        } else {
+          print('사용자 데이터가 없습니다.');
+        }
+      });
+    } else {
+      print('사용자가 로그인하지 않았습니다.');
+    }
+  }
+
+  // Week day sleep time 가져오기
+  Future<double> getUserSleepTimeFromFirestore(String key) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    double value = 0;
+    if (user != null) {
+      String userId = user.uid; // 로그인한 사용자의 ID
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          Map<String, dynamic> data =
+              documentSnapshot.data() as Map<String, dynamic>;
+          value = data[key]; // 특정 key에 해당하는 value
+          print(value);
+          return value;
+        }
+      });
+    }
+    return value;
+  }
+
+  void getDataFromFirestore() async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    try {
+      QuerySnapshot snapshot = await db.collection('product').get();
+      snapshot.docs.forEach((doc) {
+        print(doc.data());
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double width = screenSize.width;
     double height = screenSize.height;
+    List<String> days = ['일', '월', '화', '수', '목', '금', '토'];
+
+    Future<Widget> weekGraph(String day) async {
+      double percentage = await getUserSleepTimeFromFirestore(day);
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 5,
+          ),
+          CustomPaint(
+            painter: CircleProgressPainter(percentage: percentage),
+            child: Container(
+              width: 45,
+              height: 45,
+              child: Center(
+                child: Text(
+                  '${percentage.toInt()}%',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            day,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          )
+        ],
+      );
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -73,6 +177,24 @@ class _statisticState extends State<statistic> {
         children: [
           SizedBox(
             height: 10,
+          ),
+          // database test padding
+          Padding(
+            padding: EdgeInsets.only(top: width * 0.05, left: width * 0.065),
+            child: ElevatedButton(
+              onPressed: () {
+                getUserDataFromFirestore();
+                getDataFromFirestore();
+              },
+              child: Text(
+                'get data',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(top: width * 0.05, left: width * 0.065),
@@ -106,22 +228,37 @@ class _statisticState extends State<statistic> {
                 borderRadius: BorderRadius.circular(20),
                 color: const Color.fromARGB(255, 27, 26, 35),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: width * 0.02, left: width * 0.04),
-                    child: Text(
-                      '주간 수면',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ],
+              child: FutureBuilder<List<Widget>>(
+                future: Future.wait(
+                    days.map((day) => weekGraph(day))), // 여러 Future 동시 처리
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator(); // 로딩 중
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: snapshot.data!, // Row에 위젯 리스트 배치
+                    );
+                  } else {
+                    return Text('No data');
+                  }
+                },
               ),
+
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     weekGraph("일"),
+              //     weekGraph('월'),
+              //     weekGraph('화'),
+              //     weekGraph('수'),
+              //     weekGraph('목'),
+              //     weekGraph('금'),
+              //     weekGraph('토'),
+              //   ],
+              // ),
             ),
           ),
           SizedBox(
@@ -225,7 +362,13 @@ class _statisticState extends State<statistic> {
                           width: 100,
                           height: 100,
                           child: Center(
-                            child: Text('${percentage.toInt()}%'),
+                            child: Text(
+                              '${percentage.toInt()}%',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
                           ),
                         ),
                       ),

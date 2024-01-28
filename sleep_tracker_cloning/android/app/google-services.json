@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "400633001191-o905fgcokov1itl9gvnt10akr8vgf7t5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sleep_tracker_cloning",
+            "certificate_hash": "050af0b7eb928a318f82eea52b7a0e18531001f1"
+          }
+        },
+        {
           "client_id": "400633001191-7vmdodaej8r8ekankp2e2i864b93pag4.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -49,6 +57,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "400633001191-4d8crekctkavppqviq3ktgbbu8tied2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sleep_tracker",
+            "certificate_hash": "050af0b7eb928a318f82eea52b7a0e18531001f1"
+          }
+        },
         {
           "client_id": "400633001191-7vmdodaej8r8ekankp2e2i864b93pag4.apps.googleusercontent.com",
           "client_type": 3
